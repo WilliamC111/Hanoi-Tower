@@ -30,7 +30,18 @@ public class ModelTower {
     public int getNumDisks() {
         return numDisks;
     }
+    public void getSolution(int numDisks,Tower torreOrigen ,Tower torreAuxiliar , Tower torreDestino){
+        if(numDisks>0){
+            
+            this.getSolution(numDisks-1,torreOrigen,torreDestino, torreAuxiliar);
+            this.doMovement(torreOrigen, torreDestino);
+            this.getSolution(numDisks-1,torreAuxiliar, torreOrigen, torreDestino);
+        }
+    }
 
+    public void doMovement(Tower torreOrigen, Tower torreDestino){
+        torreDestino.addDisk(torreOrigen.getDisks().pop());
+    }
     public boolean moveDisk(Tower torreOrigen, Tower torreDestino) {
         Disk disk = torreOrigen.removeDisk();
         if (disk != null && torreDestino.addDisk(disk)) {

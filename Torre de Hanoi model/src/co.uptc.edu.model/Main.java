@@ -4,8 +4,10 @@ public class Main {
 
         ModelTower modelo = new ModelTower(numDisks);
 
+        modelo.getSolution(numDisks,modelo.getTorreA(), modelo.getTorreB(), modelo.getTorreC());
         
-        System.out.println("Estado inicial de las torres:");
+        System.out.println(modelo.getTorreC().getDisks().size());
+       /*System.out.println("Estado inicial de las torres:");
         System.out.println("Torre A: " + modelo.getTorreA());
         System.out.println("Torre B: " + modelo.getTorreB());
         System.out.println("Torre C: " + modelo.getTorreC());
@@ -24,6 +26,6 @@ public class Main {
             System.out.println("\n¡Has ganado!");
         } else {
             System.out.println("\nEl juego aún no ha sido completado.");
-        }
+        } */ 
     }
 }

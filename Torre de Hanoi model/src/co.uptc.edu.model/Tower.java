@@ -31,6 +31,9 @@ public class Tower {
         return disks.toString();
     }
 
+    public  Stack<Disk> getDisks(){
+        return disks;
+    }
     
 }
    
