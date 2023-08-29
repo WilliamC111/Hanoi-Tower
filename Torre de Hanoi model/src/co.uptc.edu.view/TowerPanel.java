@@ -1,13 +1,10 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
 
 class TowerPanel extends JPanel {
-
     private Tower tower;
-
     public TowerPanel(Tower tower) {
         this.tower = tower;
         setPreferredSize(new Dimension(150, 400));
