@@ -1,47 +1,74 @@
 import javax.swing.*;
-import javax.swing.text.View;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameWindow extends JFrame {
 
-    private MainWindow mainWindow;
+    private Presenter presenter;
+    private TowerPanel towerAPanel;
+    private TowerPanel towerBPanel;
+    private TowerPanel towerCPanel;
 
-    public GameWindow(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
+    public GameWindow(Presenter presenter) {
+        this.presenter = presenter;
 
-        setTitle("Game Window");
-        setSize(600, 300);
+        setTitle("Torre de Hanoi");
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setIconImage(new ImageIcon("img/icon.png").getImage());
+        JPanel mainPanel = new JPanel(new GridLayout(1, 3));
+        towerAPanel = new TowerPanel(presenter.getModel().getTorreA());
+        towerBPanel = new TowerPanel(presenter.getModel().getTorreB());
+        towerCPanel = new TowerPanel(presenter.getModel().getTorreC());
 
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closeGameWindow();
-            }
-        });
+        mainPanel.add(towerAPanel);
+        mainPanel.add(towerBPanel);
+        mainPanel.add(towerCPanel);
 
-        exitButton.setBackground(Color.DARK_GRAY);
-        exitButton.setForeground(Color.WHITE);
-        exitButton.setFocusPainted(false);
-        exitButton.setBorder(new RoundedBorder(15)); 
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(exitButton, BorderLayout.SOUTH);
-
-        add(panel);
+        JPanel buttonsPanel = createButtonsPanel();
+        add(mainPanel, BorderLayout.CENTER);
+        add(buttonsPanel, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
     }
 
-    private void closeGameWindow() {
+    private JPanel createButtonsPanel() {
+        JPanel buttonsPanel = new JPanel();
+
+        JButton moveABButton = new JButton("Move A to B");
+        moveABButton.addActionListener(e -> moveDisks(presenter.getModel().getTorreA(), presenter.getModel().getTorreB()));
+
+        JButton moveBCButton = new JButton("Move B to C");
+        moveBCButton.addActionListener(e -> moveDisks(presenter.getModel().getTorreB(), presenter.getModel().getTorreC()));
+
+        JButton moveCAButton = new JButton("Move C to A");
+        moveCAButton.addActionListener(e -> moveDisks(presenter.getModel().getTorreC(), presenter.getModel().getTorreA()));
+
+        buttonsPanel.add(moveABButton);
+        buttonsPanel.add(moveBCButton);
+        buttonsPanel.add(moveCAButton);
+
+        return buttonsPanel;
+    }
+
+    private void moveDisks(Tower sourceTower, Tower targetTower) {
+        if (presenter.moveDisk(sourceTower, targetTower)) {
+            updateTowerPanels();
+            if (presenter.checkWin()) {
+                JOptionPane.showMessageDialog(this, "Congratulations! You won!");
+            }
+        }
+    }
+
+    public void closeGameWindow() {
         setVisible(false);
-        mainWindow.setVisible(true);
+        dispose();
+    }
+
+    public void updateTowerPanels() {
+        towerAPanel.repaint();
+        towerBPanel.repaint();
+        towerCPanel.repaint();
     }
 }
