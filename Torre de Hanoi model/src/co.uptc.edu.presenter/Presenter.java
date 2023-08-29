@@ -1,3 +1,4 @@
+import javax.swing.*;
 
 public class Presenter {
 
@@ -6,7 +7,6 @@ public class Presenter {
 
     public Presenter(int numDisks) {
         model = new ModelTower(numDisks);
-        gameWindow = new GameWindow(this);
     }
 
     public ModelTower getModel() {
@@ -14,7 +14,12 @@ public class Presenter {
     }
 
     public void startGame() {
+        gameWindow = new GameWindow(this);
         gameWindow.setVisible(true);
+    }
+
+    public void exitGame() {
+        gameWindow.closeGameWindow();
     }
 
     public boolean moveDisk(Tower sourceTower, Tower targetTower) {
@@ -27,14 +32,12 @@ public class Presenter {
 
     public void solveGame() {
         model.getSolution(model.getNumDisks(),
-        model.getTorreA(), model.getTorreB(),
-        model.getTorreC());
+                          model.getTorreA(),
+                          model.getTorreB(),
+                          model.getTorreC());
     }
 
-  
 }
-
-
 
 
 
