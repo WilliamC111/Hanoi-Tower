@@ -15,6 +15,13 @@ public class Tower {
         return false;
     }
 
+    public Disk getTopDisk() {
+        if (!disks.isEmpty()) {
+            return disks.peek();
+        }
+        return null;
+    }
+
     public Disk removeDisk() {
         if (!disks.isEmpty()) {
             return disks.pop();
@@ -37,4 +44,3 @@ public class Tower {
     
 }
    
-
