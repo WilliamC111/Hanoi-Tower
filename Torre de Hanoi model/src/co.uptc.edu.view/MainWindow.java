@@ -12,8 +12,10 @@ public class MainWindow extends JFrame {
 
     public MainWindow() {
         setTitle("Main Window");
-        setSize(300, 200);
+        setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        setIconImage(new ImageIcon("img/icon.png").getImage());
 
         JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
@@ -22,6 +24,14 @@ public class MainWindow extends JFrame {
                 openGameWindow();
             }
         });
+
+
+
+        playButton.setBackground(Color.DARK_GRAY);
+        playButton.setForeground(Color.WHITE);
+        playButton.setFocusPainted(false);
+        playButton.setBorder(new RoundedBorder(15));
+
 
         JPanel panel = new JPanel();
         panel.add(playButton);

@@ -13,8 +13,10 @@ public class GameWindow extends JFrame {
         this.mainWindow = mainWindow;
 
         setTitle("Game Window");
-        setSize(300, 200);
+        setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setIconImage(new ImageIcon("img/icon.png").getImage());
 
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
@@ -23,6 +25,11 @@ public class GameWindow extends JFrame {
                 closeGameWindow();
             }
         });
+
+        exitButton.setBackground(Color.DARK_GRAY);
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFocusPainted(false);
+        exitButton.setBorder(new RoundedBorder(15)); 
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
